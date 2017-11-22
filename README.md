@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Eu sou desenvolvedor de backend, eu priorizei o desenvolvimento dos testes, deploy contínuos e implementação das features.
 
-Things you may want to cover:
+Aplicação está publicada em https://vast-anchorage-62352.herokuapp.com/
 
-* Ruby version
+Para rodar os testes automatizados:
 
-* System dependencies
+        bundle exec rspec
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
