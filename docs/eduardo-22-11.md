@@ -9,7 +9,7 @@ O dia anterior não foi produtivo, eu tive problemas com as dependências do sis
 
 - removi o ruby do sistema (ubuntu)
 - removi ruby do rvm
-- remvi gems
+- removi gems
 
 
         rvm uninstall ruby-2.4.1
@@ -153,6 +153,8 @@ Vamos instalar o `mini_racer` e `capybara` para os testes.
 
 O objetivo será entregar o máximo de valor, o mais rápido possível, com vários deploys e sem derpediçar tempo implementando outras coisas.
 
+Deploy realizado no heroku: https://vast-anchorage-62352.herokuapp.com/
+
 ## Criando as features
 
 Em interações com o cliente, o uso do Cucumber era recomendado pois possibilitava uma linguagem de features escritas em português. Atualmente, podemos escrever os testes com rspec e capybara com legibilidade, mas sem o esforço necessário para interpretar o texto no idoma, eu prefiro [essa nova abordagem](tests-with-rspec).
@@ -161,8 +163,9 @@ Em interações com o cliente, o uso do Cucumber era recomendado pois possibilit
 
 Vamos nos organizar antes de entrar em contato com o cliente.
 
-
         rails generate rspec:feature autenticacao
         rails generate rspec:feature meta
 
 - [Sintaxe para escrite de cenários](https://relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec)
+
+
