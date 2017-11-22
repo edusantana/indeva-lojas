@@ -8,4 +8,5 @@ Para rodar os testes automatizados:
 
         bundle exec rspec
 
+Um registro das atividades que realizei encontra-se [na pasta docs](https://github.com/edusantana/indeva-lojas/tree/master/docs).
 
