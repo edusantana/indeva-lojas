@@ -21,6 +21,8 @@ Cenários
 
 
 feature "Lojas", :type => :feature do
+
+  pending "Usuário cria uma loja (tornando-se proprietário dela)"
   
   scenario 'Proprietário loga no sistema com sucesso' do
     dado_existe_um_usuario_cadastrado
