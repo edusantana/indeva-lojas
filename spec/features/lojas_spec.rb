@@ -15,6 +15,7 @@ Cenários
 - Proprietário de lojas ver todas as suas lojas cadastradas
 - Proprietário não ver lojas que não são suas
 - Usuário desconhecido não tem acesso às lojas
+- Proprietário não tem acesso para ver/editar/destroir lojas alheias
 
 =end
 
@@ -46,6 +47,8 @@ feature "Lojas", :type => :feature do
     quando_primeiro_proprietario_estiver_logado_na_pagina_de_lojas
     entao_ele_nao_ver_as_lojas_do_outro
   end
+
+  pending "Proprietário não tem acesso para ver/editar/destroir lojas alheias"
 
   def dado_um_usuario_nao_cadastrado
     @usuario_nao_cadastrado = build(:user)
