@@ -7,7 +7,7 @@ class LojasController < ApplicationController
   # GET /lojas
   # GET /lojas.json
   def index
-    @lojas = Loja.all
+    @lojas = current_user.lojas
   end
 
   # GET /lojas/1

@@ -13,6 +13,7 @@ Cenários
 - Proprietário loga no sistema com sucesso
 - Proprietário acessa sua loja
 - Proprietário de lojas ver todas as suas lojas cadastradas
+- Proprietário não ver lojas que não são suas
 - Usuário desconhecido não tem acesso às lojas
 
 =end
@@ -39,6 +40,13 @@ feature "Lojas", :type => :feature do
   end
 
 
+  scenario 'Proprietário não ver lojas que não são suas' do
+    dado_um_proprietario_com_uma_loja
+    e_um_outro_proprietario_com_uma_loja
+    quando_primeiro_proprietario_estiver_logado_na_pagina_de_lojas
+    entao_ele_nao_ver_as_lojas_do_outro
+  end
+
   def dado_um_usuario_nao_cadastrado
     @usuario_nao_cadastrado = build(:user)
   end
@@ -55,7 +63,15 @@ feature "Lojas", :type => :feature do
   def e_uma_loja_e_proprietario_cadastrados
     @proprietatio = create(:user)
     @loja = create(:loja, :proprietario => @proprietatio)
+  end
 
+  def dado_um_proprietario_com_uma_loja
+    e_uma_loja_e_proprietario_cadastrados
+  end
+
+  def e_um_outro_proprietario_com_uma_loja
+    @outro = create(:user)
+    @outro_loja = create(:loja, :proprietario => @outro)
   end
 
   def e_estamos_na_pagina_inicial
@@ -64,6 +80,11 @@ feature "Lojas", :type => :feature do
 
   def quando_usuario_tenta_acessar_as_lojas
     visit lojas_path
+  end
+
+  def quando_primeiro_proprietario_estiver_logado_na_pagina_de_lojas
+    login(@proprietatio)
+    visit(lojas_path)
   end
 
   def quando_clica_em_login
@@ -89,6 +110,10 @@ feature "Lojas", :type => :feature do
 
   def e_usuario_foi_para_pagina_das_lojas
     expect(page).to have_current_path(lojas_path)    
+  end
+
+  def entao_ele_nao_ver_as_lojas_do_outro
+    expect(page).not_to have_content(@outro_loja.nome)
   end
 
 end
