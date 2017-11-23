@@ -2,5 +2,8 @@ dist: trusty
 language: ruby
 rvm:
 - 2.4.1
+bundler_args: --without production
+before_install:
+- rails db:migrate
 script:
 - bundle exec rspec
