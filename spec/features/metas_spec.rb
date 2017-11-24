@@ -59,6 +59,7 @@ feature "Metas", :type => :feature do
     e_clicar_no_valor_da_meta
     entao_foi_para_a_pagina_visualizacao_da_meta
     e_os_detalhes_da_meta_estao_sendo_exibidos
+    e_o_valor_total_das_vendas
     e_o_valor_total_da_meta_por_vendedor
     quando_clicar_em_metas
     entao_foi_para_a_pagina_de_consulta_de_metas
@@ -175,12 +176,18 @@ feature "Metas", :type => :feature do
   end
 
   def e_os_detalhes_da_meta_estao_sendo_exibidos
+    expect(page).to have_content("#{@meta.mes}/#{@meta.ano}")
     expect(page).to have_content(ActionController::Base.helpers.number_to_currency(@meta.valor, locale: 'pt-BR'))
     expect(page).to have_content(I18n.l(@meta.inicio, locale: 'pt', format: :short))
     expect(page).to have_content(I18n.l(@meta.fim, locale: 'pt', format: :short))
-  end  
+  end
+
+  def e_o_valor_total_das_vendas
+    expect(page).to have_content(ActionController::Base.helpers.number_to_currency(@meta.total, locale: 'pt-BR'))
+  end
 
   def e_o_valor_total_da_meta_por_vendedor
+    expect(page).to have_content('Participação dos vendores sobre as vendas')
     total = @meta.total_por_vendedores(@vendedores)
     @vendedores.each do |vendedor|
       expect(page).to have_content(vendedor.nome)

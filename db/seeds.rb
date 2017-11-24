@@ -23,6 +23,11 @@ v2 = lj_salvador.vendedores.create(nome: 'Vendedor Salv 2')
 v3 = lj_salvador.vendedores.create(nome: 'Vendedor Salv 3')
 
 
-d1 = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,1), valor:250)
-v1.dias << d1
-v2.dias << d1
+dia = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,1), valor:250)
+[v1,v2].each { |v| v.dias << dia }
+dia = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,2), valor:100)
+[v2,v3].each { |v| v.dias << dia }
+dia = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,3), valor:600)
+[v1,v2,v3].each { |v| v.dias << dia }
+dia = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,4), valor:320)
+[v1,v3].each { |v| v.dias << dia }
