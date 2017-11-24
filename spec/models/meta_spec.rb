@@ -8,13 +8,13 @@ RSpec.describe Meta, type: :model do
   describe '#total' do
     let(:meta) {create(:meta, loja: loja)}
 
-    context 'sem vendas' do
+    context 'sem dias' do
       it 'Retorna 0' do
         expect(meta.total).to eq(0)
       end
     end
 
-    context 'com vendas (dias)' do
+    context 'com dias' do
       before do
         create(:dia, meta: meta, valor:100)
         create(:dia, meta: meta, valor: 30)
