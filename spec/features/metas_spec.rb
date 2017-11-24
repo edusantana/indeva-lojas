@@ -51,10 +51,23 @@ feature "Metas", :type => :feature do
     #e_os_detalhes_da_meta_estao_sendo_exibidos
   end
 
+  scenario 'O proprietário pode visualizar o valor total da meta por vendedor' do
+    dado_existe_um_proprietario_de_loja
+    e_alguns_vendedores_na_loja
+    e_uma_meta_e_diversas_vendas_realizadas_na_loja_durante_a_meta
+    quando_proprietario_estiver_visualizando_as_metas_da_loja
+    e_clicar_no_valor_da_meta
+    entao_foi_para_a_pagina_visualizacao_da_meta
+    e_os_detalhes_da_meta_estao_sendo_exibidos
+    e_o_valor_total_da_meta_por_vendedor
+    quando_clicar_em_metas
+    entao_foi_para_a_pagina_de_consulta_de_metas
+  end
+
   scenario 'Proprietário de loja não tem acesso às metas de outras lojas' do
     dado_existe_um_proprietario_de_loja
     e_um_segundo_proprietario_com_outras_lojas
-    e_primeiro_proprietario_estiver_logado_na_pagina_das_lojas
+    quando_proprietario_estiver_logado_na_pagina_de_lojas
     entao_lojas_do_segundo_proprietario_nao_estarao_disponiveis_para_acesso
     e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
   end
@@ -91,6 +104,7 @@ feature "Metas", :type => :feature do
     @meta = create(:meta, mes: @mes, ano:@ano, inicio: @inicio, fim: @fim, loja: @loja)
   end
 
+
   def e_diversas_vendas_foram_realizadas_na_loja_durante_o_mes
     100.times do
       # Constroi array contendo vendedores aleatórios 
@@ -103,6 +117,12 @@ feature "Metas", :type => :feature do
     end
   end
 
+  def e_uma_meta_e_diversas_vendas_realizadas_na_loja_durante_a_meta
+    e_uma_meta_de_vendas_para_o_mes_na_loja
+    e_diversas_vendas_foram_realizadas_na_loja_durante_o_mes
+  end
+
+
   def quando_proprietario_estiver_logado_na_pagina_de_lojas
     login(@proprietario)
     visit lojas_path
@@ -112,9 +132,23 @@ feature "Metas", :type => :feature do
     quando_proprietario_estiver_logado_na_pagina_de_lojas
   end
 
+  def quando_proprietario_estiver_visualizando_as_metas_da_loja
+    login(@proprietario)
+    visit loja_metas_path(@loja)
+  end
+
   def e_clicar_em_metas_da_loja
     click_on "metas_#{@loja.id}"
   end
+
+  def e_clicar_no_valor_da_meta
+    click_on "meta_#{@meta.id}"
+  end
+
+  def quando_clicar_em_metas
+    click_on "Metas"
+  end
+
 
   def e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
     expect(page).to have_link("metas_#{@loja.id}")
@@ -122,8 +156,11 @@ feature "Metas", :type => :feature do
   end
 
   def entao_foi_para_a_pagina_de_consulta_de_metas
-    expect(page)
     expect(page).to have_current_path(loja_metas_path(@loja))
+  end
+
+  def entao_foi_para_a_pagina_visualizacao_da_meta
+    expect(page).to have_current_path(loja_meta_path(@loja.id, @meta.id))
   end
 
   def entao_lojas_do_segundo_proprietario_nao_estarao_disponiveis_para_acesso
@@ -137,6 +174,19 @@ feature "Metas", :type => :feature do
     expect(page).to have_content(I18n.l(@meta.fim, locale: 'pt', format: :short))
   end
 
-  
+  def e_os_detalhes_da_meta_estao_sendo_exibidos
+    expect(page).to have_content(ActionController::Base.helpers.number_to_currency(@meta.valor, locale: 'pt-BR'))
+    expect(page).to have_content(I18n.l(@meta.inicio, locale: 'pt', format: :short))
+    expect(page).to have_content(I18n.l(@meta.fim, locale: 'pt', format: :short))
+  end  
+
+  def e_o_valor_total_da_meta_por_vendedor
+    total = @meta.total_por_vendedores(@vendedores)
+    @vendedores.each do |vendedor|
+      expect(page).to have_content(vendedor.nome)
+      expect(page).to have_content(ActionController::Base.helpers.number_to_currency(total[vendedor.id], locale: 'pt-BR'))
+    end
+  end
+
 
 end

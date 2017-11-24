@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :lojas do
-    resources :metas, only: [:index]
+    resources :metas, only: [:index, :show]
   end
   get 'home/index'
 

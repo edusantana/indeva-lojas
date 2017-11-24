@@ -1,2 +1,52 @@
-<h1>Metas#show</h1>
-<p>Find me in app/views/metas/show.html.erb</p>
+<h1>Meta</h1>
+
+<table>
+<thead>
+  <tr>
+    <th>Ano</th>
+    <th>Início</th>
+    <th>Fim</th>
+    <th>Valor</th>
+  </tr>
+</thead>
+
+<tbody>
+    <tr>
+      <td><%= @meta.ano %></td>
+      <td><%= l @meta.inicio, locale: :pt, format: :short %></td>
+      <td><%= l @meta.fim, locale: :pt, format: :short %></td>
+      <td> <%= number_to_currency(@meta.valor, locale: 'pt-BR') %></td>
+    </tr>
+</tbody>
+</table>
+
+<h2>Vendas</h2>
+
+<% total = @meta.total_por_vendedores(@loja.vendedores) %>
+
+
+
+  <table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loja.vendedores.each do |vendedor| %>
+    <tr>
+      <td><%= vendedor.nome %></td>
+      <td><%= number_to_currency(total[vendedor.id], locale: 'pt-BR') %></td>
+    </tr>  
+    <% end %>  
+  </tbody>
+  </table>
+  
+
+
+<br>
+
+<h2>Dias</h2>
+
+<%= link_to 'Metas', loja_metas_path(@loja) %>

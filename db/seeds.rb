@@ -9,11 +9,20 @@
 @alice = User.create(:email => 'alice@email.com', :password => 'password', :password_confirmation => 'password')
 @bob = User.create(:email => 'bob@email.com', :password => 'password', :password_confirmation => 'password')
 
-@lj_salvador = Loja.create(nome: 'Salvador', proprietario: @alice)
-@lj_sao_paulo = Loja.create(nome: 'São Paulo', proprietario: @alice)
+lj_salvador = Loja.create(nome: 'Salvador', proprietario: @alice)
+lj_sao_paulo = Loja.create(nome: 'São Paulo', proprietario: @alice)
 
-@lj_rio = Loja.create(nome: 'Rio de Janeiro', proprietario: @bob)
-@lj_recife = Loja.create(nome: 'Recife', proprietario: @bob)
+lj_rio = Loja.create(nome: 'Rio de Janeiro', proprietario: @bob)
+lj_recife = Loja.create(nome: 'Recife', proprietario: @bob)
 
-@meta_salvador_2017_12 = @lj_salvador.metas.create(ano: 2017, mes: 12, valor: 3000.0, inicio: Date.new(2017,12,1), fim: Date.new(2017,12,31))
-@meta_salvador_2018_01 =@lj_salvador.metas.create(ano: 2018, mes: 1, valor: 2500.0, inicio: Date.new(2018,1,1), fim: Date.new(2018,1,31))
+meta_salvador_2017_12 = lj_salvador.metas.create(ano: 2017, mes: 12, valor: 3000.0, inicio: Date.new(2017,12,1), fim: Date.new(2017,12,31))
+meta_salvador_2018_01 = lj_salvador.metas.create(ano: 2018, mes: 1, valor: 2500.0, inicio: Date.new(2018,1,1), fim: Date.new(2018,1,31))
+
+v1 = lj_salvador.vendedores.create(nome: 'Vendedor Salv 1')
+v2 = lj_salvador.vendedores.create(nome: 'Vendedor Salv 2')
+v3 = lj_salvador.vendedores.create(nome: 'Vendedor Salv 3')
+
+
+d1 = meta_salvador_2017_12.dias.create(data: Date.new(2017,12,1), valor:250)
+v1.dias << d1
+v2.dias << d1

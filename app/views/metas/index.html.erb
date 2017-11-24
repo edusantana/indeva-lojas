@@ -20,7 +20,9 @@
         <td><%= meta.ano %></td>
         <td><%= l meta.inicio, locale: :pt, format: :short %></td>
         <td><%= l meta.fim, locale: :pt, format: :short %></td>
-        <td><%= number_to_currency(meta.valor, locale: 'pt-BR') %></td>
+        <td>
+        <%= link_to number_to_currency(meta.valor, locale: 'pt-BR'), loja_meta_path(@loja, meta), id: "meta_#{meta.id}"  %>
+        </td>
       </tr>
     <% end %>
   </tbody>
