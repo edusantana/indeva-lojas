@@ -15,8 +15,6 @@ class Meta < ApplicationRecord
   end
 
   def total
-    total = 0
-    dias.each {|v| total += v.valor}
-    total
+    dias.inject(0) {|soma, dia| soma + dia.valor } 
   end
 end
