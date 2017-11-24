@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Metas</h1>
+
+<p>Loja: <%= @loja.nome %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ano</th>
+      <th>Mês</th>
+      <th>Início</th>
+      <th>Fim</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metas.each do |meta| %>
+      <tr>
+        <td><%= meta.ano %></td>
+        <td><%= meta.mes %></td>
+        <td><%= meta.inicio %></td>
+        <td><%= meta.fim %></td>
+        <td><%= number_to_currency(meta.valor, locale: 'pt-BR') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Lojas', lojas_path %>

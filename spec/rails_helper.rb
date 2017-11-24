@@ -16,6 +16,10 @@ require 'support/users_helper'
 #Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 
+# Para acessar os helpers da view
+def helpers
+  ActionController::Base.helpers
+end
 
 
 # Checks for pending migrations before tests are run.

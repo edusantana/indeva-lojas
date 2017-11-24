@@ -14,9 +14,10 @@
     <% @lojas.each do |loja| %>
       <tr>
         <td><%= loja.nome %></td>
-        <td><%= link_to 'Show', loja %></td>
-        <td><%= link_to 'Edit', edit_loja_path(loja) %></td>
-        <td><%= link_to 'Destroy', loja, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!--  <td><%= link_to 'Show', loja %></td> -->
+
+        <td><%= link_to 'Metas', loja_metas_path(loja.id), id: "metas_#{loja.id}" %></td>
+        <!-- <td><%= link_to 'Destroy', loja, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>

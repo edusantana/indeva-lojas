@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122130556) do
+ActiveRecord::Schema.define(version: 20171124080631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dias", force: :cascade do |t|
+    t.float "valor"
+    t.bigint "meta_id"
+    t.date "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meta_id"], name: "index_dias_on_meta_id"
+  end
+
+  create_table "dias_vendedores", id: false, force: :cascade do |t|
+    t.bigint "vendedor_id", null: false
+    t.bigint "dia_id", null: false
+    t.index ["dia_id", "vendedor_id"], name: "index_dias_vendedores_on_dia_id_and_vendedor_id"
+    t.index ["vendedor_id", "dia_id"], name: "index_dias_vendedores_on_vendedor_id_and_dia_id"
+  end
 
   create_table "lojas", force: :cascade do |t|
     t.string "nome"
@@ -21,6 +37,18 @@ ActiveRecord::Schema.define(version: 20171122130556) do
     t.datetime "updated_at", null: false
     t.bigint "proprietario_id"
     t.index ["proprietario_id"], name: "index_lojas_on_proprietario_id"
+  end
+
+  create_table "metas", force: :cascade do |t|
+    t.integer "mes"
+    t.integer "ano"
+    t.date "inicio"
+    t.date "fim"
+    t.float "valor"
+    t.bigint "loja_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loja_id"], name: "index_metas_on_loja_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,5 +68,16 @@ ActiveRecord::Schema.define(version: 20171122130556) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vendedores", force: :cascade do |t|
+    t.string "nome"
+    t.bigint "loja_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loja_id"], name: "index_vendedores_on_loja_id"
+  end
+
+  add_foreign_key "dias", "metas"
   add_foreign_key "lojas", "users", column: "proprietario_id"
+  add_foreign_key "metas", "lojas"
+  add_foreign_key "vendedores", "lojas"
 end

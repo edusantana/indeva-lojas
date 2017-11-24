@@ -14,3 +14,10 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.irregular 'vendedor', 'vendedores'
+  inflect.irregular 'meta', 'metas'
+  inflect.irregular 'dia', 'dias'
+end
