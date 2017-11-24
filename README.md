@@ -16,6 +16,10 @@ Para rodar os testes automatizados:
 
         bundle exec rspec
 
+Para manter os testes executando [automaticamente enquanto os arquivos são modificados](https://github.com/guard/guard-rspec).
+
+        bundle exec guard
+
 Um registro das atividades que realizei encontra-se [na pasta docs](https://github.com/edusantana/indeva-lojas/tree/master/docs).
 
 
