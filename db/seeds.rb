@@ -14,3 +14,6 @@
 
 @lj_rio = Loja.create(nome: 'Rio de Janeiro', proprietario: @bob)
 @lj_recife = Loja.create(nome: 'Recife', proprietario: @bob)
+
+@meta_salvador_2017_12 = @lj_salvador.metas.create(ano: 2017, mes: 12, valor: 3000.0, inicio: Date.new(2017,12,1), fim: Date.new(2017,12,31))
+@meta_salvador_2018_01 =@lj_salvador.metas.create(ano: 2018, mes: 1, valor: 2500.0, inicio: Date.new(2018,1,1), fim: Date.new(2018,1,31))

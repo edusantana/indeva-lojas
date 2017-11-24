@@ -8,7 +8,6 @@
   <thead>
     <tr>
       <th>Ano</th>
-      <th>Mês</th>
       <th>Início</th>
       <th>Fim</th>
       <th>Valor</th>
@@ -19,9 +18,8 @@
     <% @metas.each do |meta| %>
       <tr>
         <td><%= meta.ano %></td>
-        <td><%= meta.mes %></td>
-        <td><%= meta.inicio %></td>
-        <td><%= meta.fim %></td>
+        <td><%= l meta.inicio, locale: :pt, format: :short %></td>
+        <td><%= l meta.fim, locale: :pt, format: :short %></td>
         <td><%= number_to_currency(meta.valor, locale: 'pt-BR') %></td>
       </tr>
     <% end %>

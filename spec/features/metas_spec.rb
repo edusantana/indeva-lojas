@@ -51,16 +51,16 @@ feature "Metas", :type => :feature do
     #e_os_detalhes_da_meta_estao_sendo_exibidos
   end
 
-  pending 'Proprietário de loja não tem acesso às metas de outras lojas' #do
-    #dado_existe_um_proprietario_com_loja_cadastrado
-    #e_um_segundo_proprietario_com_outras_lojas
-    #e_primeiro_proprietario_estiver_logado_na_pagina_das_lojas
-    #entao_lojas_do_segundo_proprietario_nao_estarao_disponiveis_para_acesso
-    #e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
-  #end
+  scenario 'Proprietário de loja não tem acesso às metas de outras lojas' do
+    dado_existe_um_proprietario_de_loja
+    e_um_segundo_proprietario_com_outras_lojas
+    e_primeiro_proprietario_estiver_logado_na_pagina_das_lojas
+    entao_lojas_do_segundo_proprietario_nao_estarao_disponiveis_para_acesso
+    e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
+  end
 
   pending 'Voltando para acessar página das lojas' #do
-    #dado_existe_um_proprietario_com_loja_cadastrado
+    #dado_existe_um_proprietario_de_loja
     #e_proprietario_esta_logado_na_pagina_de_lojas
     #quando_clicar_no_botao_lojas
     #entao_fui_para_pagina_das_lojas
@@ -71,6 +71,11 @@ feature "Metas", :type => :feature do
   def dado_existe_um_proprietario_de_loja
     @proprietario = create(:proprietario)
     @loja = create(:loja, proprietario: @proprietario)
+  end
+
+  def e_um_segundo_proprietario_com_outras_lojas
+    @proprietario_segundo = create(:proprietario)
+    @loja_segundo = create(:loja, proprietario: @proprietario_segundo)
   end
 
   def e_alguns_vendedores_na_loja
@@ -103,17 +108,35 @@ feature "Metas", :type => :feature do
     visit lojas_path
   end
 
+  def e_primeiro_proprietario_estiver_logado_na_pagina_das_lojas
+    quando_proprietario_estiver_logado_na_pagina_de_lojas
+  end
+
   def e_clicar_em_metas_da_loja
     click_on "metas_#{@loja.id}"
   end
 
+  def e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
+    expect(page).to have_link("metas_#{@loja.id}")
+    expect(page).not_to have_link("metas_#{@loja_segundo.id}")
+  end
+
   def entao_foi_para_a_pagina_de_consulta_de_metas
     expect(page)
-    expect(page).to have_current_path(loja_metas_path(@loja))    
+    expect(page).to have_current_path(loja_metas_path(@loja))
+  end
+
+  def entao_lojas_do_segundo_proprietario_nao_estarao_disponiveis_para_acesso
+    expect(page).not_to have_content(@loja_segundo.nome)
+    expect(page).to have_content(@loja.nome)
   end
 
   def e_todas_as_metas_estao_sendo_exibidas
     expect(page).to have_content(ActionController::Base.helpers.number_to_currency(@meta.valor, locale: 'pt-BR'))
+    expect(page).to have_content(I18n.l(@meta.inicio, locale: 'pt', format: :short))
+    expect(page).to have_content(I18n.l(@meta.fim, locale: 'pt', format: :short))
   end
+
+  
 
 end

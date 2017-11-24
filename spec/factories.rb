@@ -11,7 +11,7 @@ FactoryBot.define do
     "nome#{n}"
   end
 
-  factory :user, aliases: ['proprietario'] do
+  factory :user, aliases: [:proprietario] do
     email { generate(:email) }
     password "ruby123"
     password_confirmation= "ruby1234"

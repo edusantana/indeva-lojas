@@ -2,4 +2,12 @@
 
 <p>Projeto em andamento, consultar <a href="https://github.com/edusantana/indeva-lojas">página do Github</></p>
 
+<% if user_signed_in? %>
+<li>
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+</li>
+<% else %>
+<li>
 <%= link_to('Login', new_user_session_path)  %>  
+</li>
+<% end %>
