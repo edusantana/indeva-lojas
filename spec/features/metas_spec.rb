@@ -45,10 +45,6 @@ feature "Metas", :type => :feature do
     e_clicar_em_metas_da_loja
     entao_foi_para_a_pagina_de_consulta_de_metas
     e_todas_as_metas_estao_sendo_exibidas
-    #quando_selecionar_o_mes_e_ano_que_contem_os_periodos_das_metas
-    #e_clicar_numa_meta
-    #entao_foi_para_pagina_da_meta
-    #e_os_detalhes_da_meta_estao_sendo_exibidos
   end
 
   scenario 'O proprietário pode visualizar o valor total da meta por vendedor' do
@@ -73,14 +69,9 @@ feature "Metas", :type => :feature do
     e_nao_existe_botao_para_acessar_lojas_do_segundo_proprietario
   end
 
-  pending 'Voltando para acessar página das lojas' #do
-    #dado_existe_um_proprietario_de_loja
-    #e_proprietario_esta_logado_na_pagina_de_lojas
-    #quando_clicar_no_botao_lojas
-    #entao_fui_para_pagina_das_lojas
-  #end
-
   pending 'Propor valores para metas com base nas médias de vendas prévias'
+
+  # ------------------------------------------- Implementação -----------------
   
   def dado_existe_um_proprietario_de_loja
     @proprietario = create(:proprietario)
